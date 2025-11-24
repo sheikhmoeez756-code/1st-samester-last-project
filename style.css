@@ -1,0 +1,136 @@
+/* Custom CSS for BagBag Website (style.css) */
+
+/* General Body and Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Header/Navigation */
+.navbar-brand {
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+}
+
+.nav-link:hover {
+    color: #0d6efd !important;
+    border-bottom: 2px solid #0d6efd;
+}
+
+/* Hero Section */
+.hero-section .carousel-item {
+    height: 60vh;
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero-section .carousel-caption {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 8px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+/* Product Cards */
+.product-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer; /* Indicate it's clickable */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.product-card .card-img-top {
+    height: 250px;
+    object-fit: cover;
+}
+
+.product-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Gallery Section */
+#image-gallery .gallery-item {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    filter: brightness(0.9);
+}
+
+#image-gallery .gallery-item:hover {
+    transform: scale(1.03);
+    filter: brightness(1);
+}
+
+/* Footer Styling */
+footer {
+    border-top: 5px solid #0d6efd;
+}
+
+/* =================================== */
+/* RESPONSIVE MEDIA QUERIES */
+/* =================================== */
+
+/* Extra Small to Small Devices (Mobile Phones: < 768px) */
+@media (max-width: 767.98px) {
+    
+    /* Adjust container padding */
+    .container, .container-fluid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Smaller hero section on mobile */
+    .hero-section .carousel-item {
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    /* Adjust Carousel Caption text size */
+    .hero-section .carousel-caption h1 {
+        font-size: 1.8rem;
+    }
+    .hero-section .carousel-caption p {
+        font-size: 0.9rem;
+    }
+
+    /* Product Cards - Show 2 columns on small screens */
+    .row.row-cols-md-2 {
+        --bs-columns: 2;
+    }
+
+    /* Filter Buttons - Stack vertically */
+    .btn-group {
+        display: flex;
+        flex-direction: column; /* Stack buttons vertically */
+    }
+    .btn-group .btn {
+        margin-bottom: 5px; /* Add space between stacked buttons */
+        width: 100%; /* Make buttons full width */
+    }
+    
+    /* Product list container spacing */
+    .product-list-container {
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
+    }
+}
+
+/* Medium Devices (Tablets: 768px - 991.98px) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Product Cards - Show 3 columns on tablets */
+    .row.row-cols-lg-4 {
+        --bs-columns: 3 !important;
+    }
+}
