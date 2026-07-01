@@ -3,241 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BagBag - Your Perfect Bag Awaits</title>
+    <title>BagBag — Luxury Bags for Every Journey</title>
+    <meta name="description" content="BagBag — a curated collection of premium bags, backpacks, totes and handbags. Style meets utility." />
+    <link rel="icon" type="image/svg+xml" href="logo.svg" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-            <div class="container-fluid">
-                <a class="navbar-brand fw-bold text-primary" href="#">BagBag</a>
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top glass-nav" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#home"><img src="logo.svg" alt="" class="brand-mark">Bag<span>Bag</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="bi bi-list"></i>
                 </button>
-                
+
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto"> <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Shop By Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#men">Men's Bags</a></li> 
-                                <li><a class="dropdown-item" href="#women">Women's Bags</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#men">Shop All</a></li>
-                            </ul>
-                        </li>
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#men">Men</a></li>
                         <li class="nav-item"><a class="nav-link" href="#women">Women</a></li>
                         <li class="nav-item"><a class="nav-link" href="#brands">Brands</a></li>
                         <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                         <li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
-                </div>
-
-                <div class="d-flex order-lg-last order-first">
-                    <button class="btn btn-outline-secondary me-2 d-none d-md-block" type="button"><i class="bi bi-search"></i></button>
-                    <button class="btn btn-primary position-relative" type="button">
-                        <i class="bi bi-bag"></i> Cart 
-                        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            0
-                            <span class="visually-hidden">items in cart</span>
-                        </span>
-                    </button>
+                    <div class="nav-actions">
+                        <div id="account-area">
+                            <a href="login.html" class="btn btn-cart" id="login-link">
+                                <i class="bi bi-person"></i>
+                                <span>Login</span>
+                            </a>
+                        </div>
+                        <button class="btn btn-cart position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer" aria-controls="cartDrawer">
+                            <i class="bi bi-bag"></i>
+                            <span>Cart</span>
+                            <span id="cart-count" class="cart-badge">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
 
     <main>
-        <section id="home" class="hero-section mb-5">
-            <div id="bagCarousel" class="carousel slide" data-bs-ride="carousel">
+        <!-- ===== HERO ===== -->
+        <section id="home" class="hero-section">
+            <div id="bagCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active" style="background-image: url('placeholder-bag1.jpg');">
-                        <div class="carousel-caption d-block">
-                            <h1 class="display-3 fw-bold">Style Meets Utility</h1>
-                            <p class="lead">Find the perfect companion for your journey.</p>
-                            <a href="#shop-all" class="btn btn-primary btn-lg mt-3">Shop Now</a>
+                    <div class="carousel-item active" style="background-image: url('img/photo-1571273260782-bab4699dde20.jpg');">
+                        <div class="hero-overlay"></div>
+                        <div class="container hero-content">
+                            <span class="hero-eyebrow">New Season · 2025</span>
+                            <h1>Style Meets <span class="text-gold">Utility</span></h1>
+                            <p>Find the perfect companion for every journey — crafted for those who carry the world with them.</p>
+                            <a href="#men" class="btn btn-gold btn-lg">Shop the Collection <i class="bi bi-arrow-right ms-1"></i></a>
                         </div>
                     </div>
-                    <div class="carousel-item" style="background-image: url('placeholder-bag2.jpg');">
-                        <div class="carousel-caption d-block">
-                            <h1 class="display-3 fw-bold">New Arrivals: BackPacks</h1>
-                            <p class="lead">Durable, stylish, and ready for adventure.</p>
-                            <a href="#backpacks" class="btn btn-outline-light btn-lg mt-3">Explore BackPacks</a>
+                    <div class="carousel-item" style="background-image: url('img/photo-1682364853446-db043f643207.jpg');">
+                        <div class="hero-overlay"></div>
+                        <div class="container hero-content">
+                            <span class="hero-eyebrow">Just Landed</span>
+                            <h1>New Arrivals: <span class="text-gold">Backpacks</span></h1>
+                            <p>Durable, refined, and ready for adventure. Engineered to move with you.</p>
+                            <a href="#men" class="btn btn-outline-gold btn-lg">Explore Backpacks <i class="bi bi-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="background-image: url('img/premium_photo-1679314407939-858a78e9e1ac.jpg');">
+                        <div class="hero-overlay"></div>
+                        <div class="container hero-content">
+                            <span class="hero-eyebrow">Icons of Elegance</span>
+                            <h1>Timeless <span class="text-gold">Handbags</span></h1>
+                            <p>Elegance that never fades — pieces designed to be loved for years.</p>
+                            <a href="#women" class="btn btn-gold btn-lg">Discover Women's <i class="bi bi-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="men" class="container py-5 bg-white shadow-sm mb-5">
-            <h2 class="text-center mb-5 text-uppercase">👤 Men's Collection</h2>
-            <div class="row mb-4">
-                <div class="col text-center">
-                    <div class="btn-group" role="group" aria-label="Men's Category Filter">
-                        <button type="button" class="btn btn-outline-dark active filter-btn" data-gender="men" data-category="all">All Men's Bags</button>
-                        <button type="button" class="btn btn-outline-dark filter-btn" data-gender="men" data-category="backpacks">BackPacks</button>
-                        <button type="button" class="btn btn-outline-dark filter-btn" data-gender="men" data-category="messenger">Sling Bags</button>
-                    </div>
-                </div>
-            </div>
-            <div id="men-product-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 product-list-container">
-            </div>
-        </section>
-
-        <section id="women" class="container py-5 bg-light mb-5">
-            <h2 class="text-center mb-5 text-uppercase">🌸 Women's Collection</h2>
-            <div class="row mb-4">
-                <div class="col text-center">
-                    <div class="btn-group" role="group" aria-label="Women's Category Filter">
-                        <button type="button" class="btn btn-outline-dark active filter-btn" data-gender="women" data-category="all">All Women's Bags</button>
-                        <button type="button" class="btn btn-outline-dark filter-btn" data-gender="women" data-category="totes">Totes</button>
-                        <button type="button" class="btn btn-outline-dark filter-btn" data-gender="women" data-category="handbags">Handbags</button>
-                    </div>
-                </div>
-            </div>
-            <div id="women-product-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 product-list-container">
-            </div>
-        </section>
-
-        <section id="facilities" class="bg-light py-5">
-            <div class="container text-center">
-                <h2 class="mb-4">Why Shop With BagBag?</h2>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <i class="bi bi-truck fs-1 text-primary"></i>
-                        <h5>Fast Shipping</h5>
-                        <p>Enjoy free and fast delivery on all orders over $50.</p>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <i class="bi bi-shield-lock fs-1 text-primary"></i>
-                        <h5>Secure Payments</h5>
-                        <p>Your payment information is always safe with us.</p>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <i class="bi bi-arrow-return-left fs-1 text-primary"></i>
-                        <h5>Easy Returns</h5>
-                        <p>30-day no-questions-asked return policy.</p>
-                    </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#bagCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#bagCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#bagCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#bagCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#bagCarousel" data-bs-slide-to="2"></button>
                 </div>
             </div>
         </section>
 
-        <section id="brands" class="container py-5">
-            <h2 class="text-center mb-5">Trusted Brands</h2>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-4 col-md-2 text-center"><img src="img/brands name/premium_photo-1668902224245-0f09f90a7a15.jpg" alt="Brand Logo" class="img-fluid opacity-75"></div>
-                <div class="col-4 col-md-2 text-center"><img src="img/brands name/premium_photo-1668902224245-0f09f90a7a15.jpg" alt="Brand Logo" class="img-fluid opacity-75"></div>
-                <div class="col-4 col-md-2 text-center"><img src="img/brands name/premium_photo-1668902224245-0f09f90a7a15.jpg" alt="Brand Logo" class="img-fluid opacity-75"></div>
-                </div>
-        </section>
+        <!-- ===== TRUST MARQUEE ===== -->
+        <div class="marquee">
+            <div class="marquee-track">
+                <span>✦ Free Shipping Over $50</span><span>✦ 30-Day Easy Returns</span><span>✦ Secure Payments</span><span>✦ Premium Craftsmanship</span><span>✦ 100% Authentic</span>
+                <span>✦ Free Shipping Over $50</span><span>✦ 30-Day Easy Returns</span><span>✦ Secure Payments</span><span>✦ Premium Craftsmanship</span><span>✦ 100% Authentic</span>
+            </div>
+        </div>
 
-        <section id="gallery" class="container-fluid py-5 bg-dark text-white">
+        <!-- ===== MEN'S COLLECTION ===== -->
+        <section id="men" class="section">
             <div class="container">
-                <h2 class="text-center mb-5">📸 BagBag Gallery</h2>
-                <div class="row g-2" id="image-gallery">
-                    <div class="col-lg-3 col-md-4 col-sm-6"><img src="placeholder-g1.jpg" alt="Bag Image" class="img-fluid rounded gallery-item"></div>
-                    <div class="col-lg-3 col-md-4 col-sm-6"><img src="placeholder-g2.jpg" alt="Bag Image" class="img-fluid rounded gallery-item"></div>
-                    <div class="col-lg-3 col-md-4 col-sm-6"><img src="placeholder-g3.jpg" alt="Bag Image" class="img-fluid rounded gallery-item"></div>
-                    <div class="col-lg-3 col-md-4 col-sm-6"><img src="placeholder-g4.jpg" alt="Bag Image" class="img-fluid rounded gallery-item"></div>
+                <div class="section-head reveal">
+                    <span class="section-label">The Gentleman's Edit</span>
+                    <h2>Men's Collection</h2>
+                    <p>Bold, functional, and built to last — bags that work as hard as you do.</p>
                 </div>
+                <div class="filter-bar reveal" role="group" aria-label="Men's Category Filter">
+                    <button type="button" class="filter-btn active" data-gender="men" data-category="all">All</button>
+                    <button type="button" class="filter-btn" data-gender="men" data-category="backpacks">Backpacks</button>
+                    <button type="button" class="filter-btn" data-gender="men" data-category="messenger">Sling Bags</button>
+                    <button type="button" class="filter-btn" data-gender="men" data-category="bags">Business</button>
+                </div>
+                <div id="men-product-list" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 product-list-container"></div>
             </div>
         </section>
 
-        <section id="feedback" class="container py-5">
-            <h2 class="text-center mb-5">💬 Share Your Experience</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <form id="feedbackForm">
-                        <div class="mb-3">
-                            <label for="feedbackName" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="feedbackName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="feedbackEmail" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="feedbackEmail" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="feedbackMessage" class="form-label">Your Feedback</label>
-                            <textarea class="form-control" id="feedbackMessage" rows="5" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="feedbackRating" class="form-label">Rating</label>
-                            <select class="form-select" id="feedbackRating">
-                                <option selected>5 Stars</option>
-                                <option value="4">4 Stars</option>
-                                <option value="3">3 Stars</option>
-                                <option value="2">2 Stars</option>
-                                <option value="1">1 Star</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
-                    </form>
-                    <div id="feedback-success" class="alert alert-success mt-3 d-none" role="alert">
-                        Thank you for your valuable feedback!
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="bg-light py-5">
+        <!-- ===== WOMEN'S COLLECTION ===== -->
+        <section id="women" class="section section-alt">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5 class="mb-3">🗺️ Our Locations</h5>
-                        <p class="fw-bold">BagBag Partner Location (Aptech Lahore)</p>
-                        <p class="small">House 415-E 2nd Floor, Commercial Plaza, Khayaban-e-Firdousi, near ALLAH-U-CHOWK, Block E Phase 1 Johar Town, Lahore, 54782</p>
-                        <p>Contact: +92 333 9560199</p>
-                        <a href="https://maps.google.com/?cid=15862372759901888853&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" class="btn btn-sm btn-outline-primary mt-2">View on Google Maps</a>
+                <div class="section-head reveal">
+                    <span class="section-label">The Muse Collection</span>
+                    <h2>Women's Collection</h2>
+                    <p>Effortless elegance in every stitch — totes, handbags and more.</p>
+                </div>
+                <div class="filter-bar reveal" role="group" aria-label="Women's Category Filter">
+                    <button type="button" class="filter-btn active" data-gender="women" data-category="all">All</button>
+                    <button type="button" class="filter-btn" data-gender="women" data-category="totes">Totes</button>
+                    <button type="button" class="filter-btn" data-gender="women" data-category="handbags">Handbags</button>
+                    <button type="button" class="filter-btn" data-gender="women" data-category="backpacks">Backpacks</button>
+                </div>
+                <div id="women-product-list" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 product-list-container"></div>
+            </div>
+        </section>
+
+        <!-- ===== WHY SHOP ===== -->
+        <section id="facilities" class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="section-label">The BagBag Promise</span>
+                    <h2>Why Shop With Us</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-truck"></i></div>
+                            <h5>Fast, Free Shipping</h5>
+                            <p>Complimentary express delivery on every order over $50, worldwide.</p>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <h5 class="mb-3">❓ Queries</h5>
-                        <p>Have a question about an order, shipping, or returns? Check out our detailed <a href="#" class="text-primary">FAQ section</a>.</p>
-                        <a href="mailto:support@bagbag.com" class="btn btn-sm btn-outline-secondary">Email Support</a>
+                    <div class="col-md-4 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+                            <h5>Secure Payments</h5>
+                            <p>Bank-grade encryption keeps your payment details safe, always.</p>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <h5 class="mb-3">ℹ️ About Us</h5>
-                        <p>BagBag is committed to providing the highest quality bags for every occasion. Learn more about our mission and history.</p>
-                        <a href="#" class="btn btn-sm btn-outline-secondary">Read Our Story</a>
+                    <div class="col-md-4 reveal">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="bi bi-arrow-return-left"></i></div>
+                            <h5>Easy Returns</h5>
+                            <p>Changed your mind? Enjoy a 30-day, no-questions-asked return policy.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="download" class="text-center py-4 bg-primary text-white">
-            <p class="mb-0">
-                <i class="bi bi-file-earmark-arrow-down-fill"></i> Download our **Complete Product Catalog** for offline viewing.
-                <a href="catalog.pdf" class="btn btn-light btn-sm ms-3" download>Download PDF</a>
-            </p>
+        <!-- ===== BRANDS ===== -->
+        <section id="brands" class="section section-alt">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="section-label">Curated Labels</span>
+                    <h2>Trusted Brands</h2>
+                    <p>We partner with the world's finest makers of leather goods.</p>
+                </div>
+                <div class="row justify-content-center g-4 reveal">
+                    <div class="col-6 col-md-3"><div class="brand-card"><img src="img/brands/brand-1.jpg" alt="Brand" loading="lazy"></div></div>
+                    <div class="col-6 col-md-3"><div class="brand-card"><img src="img/brands/brand-2.jpg" alt="Brand" loading="lazy"></div></div>
+                    <div class="col-6 col-md-3"><div class="brand-card"><img src="img/brands/brand-3.jpg" alt="Brand" loading="lazy"></div></div>
+                    <div class="col-6 col-md-3"><div class="brand-card"><img src="img/brands/brand-4.jpg" alt="Brand" loading="lazy"></div></div>
+                </div>
+            </div>
         </section>
 
+        <!-- ===== GALLERY ===== -->
+        <section id="gallery" class="section">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="section-label">Lookbook</span>
+                    <h2>The Gallery</h2>
+                    <p>A glimpse into the BagBag lifestyle.</p>
+                </div>
+                <div class="gallery-grid reveal">
+                    <div class="gallery-item"><img src="img/james-ree-ZmeFtu11Hpc-unsplash.jpg" alt="Bag lifestyle" loading="lazy"><span class="gallery-tag"><i class="bi bi-arrow-up-right"></i></span></div>
+                    <div class="gallery-item"><img src="img/photo-1606522754091-a3bbf9ad4cb3.jpg" alt="Bag lifestyle" loading="lazy"><span class="gallery-tag"><i class="bi bi-arrow-up-right"></i></span></div>
+                    <div class="gallery-item"><img src="img/photo-1641943093217-4a40b4e92a50.jpg" alt="Bag lifestyle" loading="lazy"><span class="gallery-tag"><i class="bi bi-arrow-up-right"></i></span></div>
+                    <div class="gallery-item"><img src="img/photo-1645276281394-395ff9f072a7.jpg" alt="Bag lifestyle" loading="lazy"><span class="gallery-tag"><i class="bi bi-arrow-up-right"></i></span></div>
+                    <div class="gallery-item"><img src="img/photo-1710144011648-f114544a1ac5.jpg" alt="Bag lifestyle" loading="lazy"><span class="gallery-tag"><i class="bi bi-arrow-up-right"></i></span></div>
+                    <div class="gallery-item"><img src="img/photo-1710144012477-298aecd45d4a.jpg" alt="Bag lifestyle" loading="lazy"><span class="gallery-tag"><i class="bi bi-arrow-up-right"></i></span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FEEDBACK ===== -->
+        <section id="feedback" class="section section-alt">
+            <div class="container">
+                <div class="section-head reveal">
+                    <span class="section-label">We're Listening</span>
+                    <h2>Share Your Experience</h2>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 reveal">
+                        <form id="feedbackForm" class="glass-form">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="feedbackName" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control" id="feedbackName" placeholder="Jane Doe" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="feedbackEmail" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="feedbackEmail" placeholder="jane@example.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="feedbackMessage" class="form-label">Your Feedback</label>
+                                    <textarea class="form-control" id="feedbackMessage" rows="4" placeholder="Tell us what you think..." required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="feedbackRating" class="form-label">Rating</label>
+                                    <select class="form-select" id="feedbackRating">
+                                        <option value="5" selected>★★★★★ — Excellent</option>
+                                        <option value="4">★★★★ — Great</option>
+                                        <option value="3">★★★ — Good</option>
+                                        <option value="2">★★ — Fair</option>
+                                        <option value="1">★ — Poor</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-gold btn-lg w-100 w-md-auto">Submit Feedback</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="feedback-success" class="alert-success-custom d-none">
+                            <i class="bi bi-check-circle-fill me-2"></i> Thank you for your valuable feedback!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-4 reveal">
+                        <div class="contact-card">
+                            <div class="feature-icon"><i class="bi bi-geo-alt"></i></div>
+                            <h5>Visit Us</h5>
+                            <p class="fw-semibold mb-1">BagBag — Aptech Lahore</p>
+                            <p class="small">House 415-E 2nd Floor, Khayaban-e-Firdousi, near Allah-u-Chowk, Block E Phase 1, Johar Town, Lahore 54782</p>
+                            <p class="mb-2">+92 333 9560199</p>
+                            <a href="https://maps.google.com/?cid=15862372759901888853" target="_blank" class="btn btn-outline-gold btn-sm">View on Maps</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal">
+                        <div class="contact-card">
+                            <div class="feature-icon"><i class="bi bi-headset"></i></div>
+                            <h5>Need Help?</h5>
+                            <p>Questions about an order, shipping, or returns? Our team is here for you every day.</p>
+                            <a href="mailto:support@bagbag.com" class="btn btn-outline-gold btn-sm">Email Support</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 reveal">
+                        <div class="contact-card">
+                            <div class="feature-icon"><i class="bi bi-gem"></i></div>
+                            <h5>Our Story</h5>
+                            <p>BagBag is committed to premium craftsmanship and timeless design for every occasion.</p>
+                            <a href="#home" class="btn btn-outline-gold btn-sm">Back to Top</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- ===== PRODUCT MODAL ===== -->
     <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header border-0">
                     <h5 class="modal-title" id="productDetailModalLabel">Product Details</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row g-4">
                     <div class="col-md-5">
-                        <img id="modal-product-img" src="" class="img-fluid rounded" alt="Product Image">
+                        <img id="modal-product-img" src="" class="img-fluid rounded-4 w-100" alt="Product Image">
                     </div>
                     <div class="col-md-7">
-                        <h2 id="modal-product-name" class="fw-bold text-primary"></h2>
-                        <p class="text-muted"><span id="modal-product-brand"></span> | <span id="modal-product-category"></span></p>
-                        <h3 class="text-danger fw-bold my-3">$<span id="modal-product-price"></span></h3>
-                        <p class="lead" id="modal-product-spec"></p>
+                        <h2 id="modal-product-name" class="modal-product-name"></h2>
+                        <p class="text-muted-gold"><span id="modal-product-brand"></span> · <span id="modal-product-category"></span></p>
+                        <h3 class="modal-price">$<span id="modal-product-price"></span></h3>
+                        <p class="modal-spec" id="modal-product-spec"></p>
                         <div class="d-grid mt-4">
-                            <button id="modal-add-to-cart-btn" class="btn btn-primary btn-lg"><i class="bi bi-cart-plus me-2"></i> Add to Cart</button>
+                            <button id="modal-add-to-cart-btn" class="btn btn-gold btn-lg"><i class="bi bi-bag-plus me-2"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -245,50 +320,82 @@
         </div>
     </div>
 
-    <footer class="bg-dark text-white pt-5 pb-3">
+    <!-- ===== CART DRAWER ===== -->
+    <div class="offcanvas offcanvas-end cart-drawer" tabindex="-1" id="cartDrawer" aria-labelledby="cartDrawerLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartDrawerLabel"><i class="bi bi-bag me-2"></i> Your Cart</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <div id="cart-empty" class="cart-empty">
+                <i class="bi bi-bag-x"></i>
+                <p>Your cart is empty</p>
+                <button class="btn btn-outline-gold btn-sm" data-bs-dismiss="offcanvas">Start Shopping</button>
+            </div>
+            <div id="cart-items-list" class="cart-items-list flex-grow-1"></div>
+            <div id="cart-footer" class="cart-footer d-none">
+                <div class="cart-subtotal">
+                    <span>Subtotal</span>
+                    <span>$<span id="cart-subtotal">0.00</span></span>
+                </div>
+                <button class="btn btn-gold btn-lg w-100 mt-3" id="checkout-btn"><i class="bi bi-lock-fill me-2"></i> Checkout</button>
+                <p class="text-center small text-muted-gold mt-2 mb-0">Free shipping on orders over $50</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h6 class="text-uppercase mb-4 fw-bold">Site Map</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#home" class="text-white-50 text-decoration-none">Home</a></li>
-                        <li><a href="#men" class="text-white-50 text-decoration-none">Men's Collection</a></li>
-                        <li><a href="#women" class="text-white-50 text-decoration-none">Women's Collection</a></li>
-                        <li><a href="#brands" class="text-white-50 text-decoration-none">Brands</a></li>
-                        <li><a href="#gallery" class="text-white-50 text-decoration-none">Gallery</a></li>
-                        <li><a href="#feedback" class="text-white-50 text-decoration-none">Feedback</a></li>
-                        <li><a href="#contact" class="text-white-50 text-decoration-none">Contact Us / About Us</a></li>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <a href="#home" class="footer-brand"><img src="logo.svg" alt="" class="brand-mark">Bag<span>Bag</span></a>
+                    <p class="mt-3">Premium bags for every journey. Designed with care, built to last, and made to move with you.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6>Shop</h6>
+                    <ul>
+                        <li><a href="#men">Men</a></li>
+                        <li><a href="#women">Women</a></li>
+                        <li><a href="#brands">Brands</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="text-uppercase mb-4 fw-bold">Categories</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#bags" class="text-white-50 text-decoration-none">Bags</a></li>
-                        <li><a href="#sling-bags" class="text-white-50 text-decoration-none">Sling Bags</a></li>
-                        <li><a href="#backpacks" class="text-white-50 text-decoration-none">BackPacks</a></li>
+                <div class="col-lg-2 col-md-3 col-6">
+                    <h6>Company</h6>
+                    <ul>
+                        <li><a href="#feedback">Feedback</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#home">About</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="text-uppercase mb-4 fw-bold">Connect</h6>
-                    <p><i class="bi bi-geo-alt-fill me-2"></i> Metropolis City, USA</p>
-                    <p><i class="bi bi-envelope-fill me-2"></i> info@bagbag.com</p>
-                    <p><i class="bi bi-phone-fill me-2"></i> +1 (555) 123-4567</p>
-                </div>
-                <div class="col-md-3">
-                    <h6 class="text-uppercase mb-4 fw-bold">Follow Us</h6>
-                    <a href="#" class="text-white me-2"><i class="bi bi-facebook fs-4"></i></a>
-                    <a href="#" class="text-white me-2"><i class="bi bi-twitter fs-4"></i></a>
-                    <a href="#" class="text-white me-2"><i class="bi bi-instagram fs-4"></i></a>
+                <div class="col-lg-4 col-md-12">
+                    <h6>Stay in the Loop</h6>
+                    <p class="small">Subscribe for new arrivals and exclusive offers.</p>
+                    <form class="newsletter" onsubmit="return false;">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-gold"><i class="bi bi-send"></i></button>
+                    </form>
                 </div>
             </div>
-            <hr class="my-4">
-            <div class="text-center">
-                <p>&copy; 2025 BagBag. All Rights Reserved.</p>
+            <hr>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BagBag. All rights reserved.</p>
+                <p>Designed &amp; built by Abdul Moeez Hassan</p>
             </div>
         </div>
     </footer>
 
+    <!-- Back to top -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top"><i class="bi bi-arrow-up"></i></button>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

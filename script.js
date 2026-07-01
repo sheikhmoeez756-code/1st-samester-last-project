@@ -1,239 +1,310 @@
-// Custom JavaScript for BagBag Website (script.js)
+// ============================================
+//  BagBag — Luxury Redesign  (script.js)
+// ============================================
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- GLOBAL STATE ---
-    let cartItems = 0;
-    const cartCountElement = document.getElementById('cart-count');
-    // Initialize the Bootstrap Modal component
-    const productDetailModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
-    
-    // --- SAMPLE PRODUCT DATA ---
+    // ---------- PRODUCT DATA ----------
     const products = [
-        // Men's Products
-        { id: 101, name: 'Urban Explorer Sling', category: 'messenger', gender: 'men', price: 55.00, brand: 'Apex', spec: 'Cross-body design, water-resistant.', img: './img/menproducts/Louis Backpack.jpeg' },
-        { id: 102, name: 'Travel Pro BackPack', category: 'backpacks', gender: 'men', price: 99.00, brand: 'DurableCo', spec: 'Water-resistant fabric, hidden pockets, 30L capacity.', img: '/img/menproducts/Lo zaino monospalla avenue nm, realizzato in tela….jpeg' },
-        { id: 103, name: 'Professional Briefcase', category: 'bags', gender: 'men', price: 210.00, brand: 'Acme', spec: 'Premium leather, 17" laptop compartment.', img: '/img/menproducts/Luxury travel beautifully blends elegance with….jpeg' },
-        { id: 104, name: 'Workout Gym Duffel', category: 'bags', gender: 'men', price: 45.00, brand: 'Fitness', spec: 'Ventilated shoe pocket, large capacity.', img: '/img/menproducts/Something urban and funky for the designer junkie_….jpeg' },
+        // Men
+        { id: 101, name: 'Urban Explorer Sling', category: 'messenger', gender: 'men',   price: 55.00,  brand: 'Apex',      spec: 'A sleek cross-body design in water-resistant fabric — perfect for the daily commute.', img: 'img/menproducts/men-1.jpg' },
+        { id: 102, name: 'Travel Pro Backpack',  category: 'backpacks', gender: 'men',   price: 99.00,  brand: 'DurableCo', spec: 'Water-resistant shell, hidden security pockets and a generous 30L capacity.',        img: 'img/menproducts/men-2.jpg' },
+        { id: 103, name: 'Professional Briefcase',category: 'bags',      gender: 'men',   price: 210.00, brand: 'Acme',      spec: 'Full-grain premium leather with a padded 17" laptop compartment.',                   img: 'img/menproducts/men-3.jpg' },
+        { id: 104, name: 'Weekend Duffel',        category: 'bags',      gender: 'men',   price: 45.00,  brand: 'Nomad',     spec: 'Spacious main compartment with a ventilated shoe pocket for the gym or travel.',      img: 'img/menproducts/men-4.jpg' },
 
-        // Women's Products
-        { id: 201, name: 'Classic Business Tote', category: 'totes', gender: 'women', price: 120.50, brand: 'Vogue', spec: 'Vegan leather, 14" laptop space.', img: '/img/womenproducts/Louis Vuitton Millefeuille Bag _ Bragmybag.jpeg' },
-        { id: 202, name: 'Everyday Elegant Handbag', category: 'handbags', gender: 'women', price: 110.00, brand: 'Chic Bags', spec: 'Secure zip top closure, metal feet.', img: '/img/womenproducts/Louis Vuitton Beaubourg Bag _ Bragmybag.jpeg' },
-        { id: 203, name: 'Mini Crossbody Sparkle', category: 'handbags', gender: 'women', price: 45.99, brand: 'Sparkle', spec: 'Small size, adjustable strap, bright colors.', img: '/img/womenproducts/Louis Vuitton Victoire Bag _ Bragmybag.jpeg' },
-        { id: 204, name: 'Weekend Travel Backpack', category: 'backpacks', gender: 'women', price: 79.99, brand: 'Explorer', spec: 'Anti-theft zipper, lightweight material.', img: '/img/womenproducts/photo-1606522754091-a3bbf9ad4cb3.jpg' },
+        // Women
+        { id: 201, name: 'Classic Business Tote', category: 'totes',     gender: 'women', price: 120.50, brand: 'Vogue',     spec: 'Structured vegan leather tote with dedicated 14" laptop space.',                       img: 'img/womenproducts/women-1.jpg' },
+        { id: 202, name: 'Everyday Elegant Handbag',category: 'handbags',gender: 'women', price: 110.00, brand: 'Chic',      spec: 'A timeless silhouette with secure zip-top closure and polished metal feet.',          img: 'img/womenproducts/women-2.jpg' },
+        { id: 203, name: 'Mini Crossbody Sparkle',category: 'handbags',  gender: 'women', price: 45.99,  brand: 'Lumière',   spec: 'Compact and playful, with an adjustable strap and a jewel-tone finish.',              img: 'img/womenproducts/women-3.jpg' },
+        { id: 204, name: 'Weekend Travel Backpack',category: 'backpacks',gender: 'women', price: 79.99,  brand: 'Explorer',  spec: 'Lightweight everyday backpack with a discreet anti-theft zipper.',                    img: 'img/womenproducts/women-4.jpg' },
     ];
-    
-    // --- UTILITY FUNCTIONS ---
 
-    const updateCartDisplay = () => {
-        if (cartCountElement) {
-            cartCountElement.textContent = cartItems;
-            // Show/hide badge if cart is empty
-            cartCountElement.style.display = cartItems > 0 ? 'inline-block' : 'none';
+    // ---------- CART STATE ----------
+    const cart = [];               // { id, qty }
+    const cartCountEl   = document.getElementById('cart-count');
+    const cartListEl    = document.getElementById('cart-items-list');
+    const cartEmptyEl   = document.getElementById('cart-empty');
+    const cartFooterEl  = document.getElementById('cart-footer');
+    const cartSubtotalEl= document.getElementById('cart-subtotal');
+
+    const productModal = new bootstrap.Modal(document.getElementById('productDetailModal'));
+
+    const money = (n) => n.toFixed(2);
+    const cap   = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+    // ---------- CART LOGIC ----------
+    const addToCart = (id) => {
+        const line = cart.find(l => l.id === id);
+        if (line) line.qty++;
+        else cart.push({ id, qty: 1 });
+        renderCart();
+    };
+
+    const changeQty = (id, delta) => {
+        const line = cart.find(l => l.id === id);
+        if (!line) return;
+        line.qty += delta;
+        if (line.qty <= 0) cart.splice(cart.indexOf(line), 1);
+        renderCart();
+    };
+
+    const removeLine = (id) => {
+        const line = cart.find(l => l.id === id);
+        if (line) cart.splice(cart.indexOf(line), 1);
+        renderCart();
+    };
+
+    const renderCart = () => {
+        const totalQty = cart.reduce((s, l) => s + l.qty, 0);
+        cartCountEl.textContent = totalQty;
+        cartCountEl.style.display = totalQty > 0 ? 'inline-flex' : 'none';
+
+        if (cart.length === 0) {
+            cartEmptyEl.classList.remove('d-none');
+            cartFooterEl.classList.add('d-none');
+            cartListEl.innerHTML = '';
+            return;
         }
-    };
-    
-    const addToCart = (productId) => {
-        cartItems++;
-        updateCartDisplay();
-        console.log(`Product ID ${productId} successfully added to cart. Total items: ${cartItems}`);
-    };
-    
-    const showProductDetails = (product) => {
-        // Populate modal with product data
-        document.getElementById('modal-product-img').src = product.img;
-        document.getElementById('modal-product-name').textContent = product.name;
-        document.getElementById('modal-product-brand').textContent = `Brand: ${product.brand}`;
-        document.getElementById('modal-product-category').textContent = `Category: ${product.category.charAt(0).toUpperCase() + product.category.slice(1)}`;
-        document.getElementById('modal-product-price').textContent = product.price.toFixed(2);
-        document.getElementById('modal-product-spec').textContent = product.spec;
 
-        // Set up the modal's Add to Cart button
-        const modalCartBtn = document.getElementById('modal-add-to-cart-btn');
-        // Clear old listener by cloning the node
-        modalCartBtn.replaceWith(modalCartBtn.cloneNode(true));
-        const newModalCartBtn = document.getElementById('modal-add-to-cart-btn');
-        
-        // Add new listener to the new button instance
-        newModalCartBtn.addEventListener('click', () => {
-            addToCart(product.id);
-            alert(`${product.name} added to cart!`);
-            productDetailModal.hide(); // Hide modal after adding
-        });
+        cartEmptyEl.classList.add('d-none');
+        cartFooterEl.classList.remove('d-none');
 
-        productDetailModal.show();
+        cartListEl.innerHTML = cart.map(line => {
+            const p = products.find(pr => pr.id === line.id);
+            return `
+                <div class="cart-item">
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="cart-item-info">
+                        <h6>${p.name}</h6>
+                        <span class="price">$${money(p.price)}</span>
+                        <div class="cart-qty">
+                            <button data-action="dec" data-id="${p.id}" aria-label="Decrease">&minus;</button>
+                            <span>${line.qty}</span>
+                            <button data-action="inc" data-id="${p.id}" aria-label="Increase">+</button>
+                        </div>
+                    </div>
+                    <button class="cart-remove" data-action="remove" data-id="${p.id}" aria-label="Remove"><i class="bi bi-trash3"></i></button>
+                </div>`;
+        }).join('');
+
+        const subtotal = cart.reduce((s, l) => {
+            const p = products.find(pr => pr.id === l.id);
+            return s + p.price * l.qty;
+        }, 0);
+        cartSubtotalEl.textContent = money(subtotal);
     };
 
-    // --- CORE CARD RENDERING FUNCTION ---
+    // Event delegation for cart controls
+    cartListEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        const id = parseInt(btn.dataset.id, 10);
+        if (btn.dataset.action === 'inc') changeQty(id, 1);
+        if (btn.dataset.action === 'dec') changeQty(id, -1);
+        if (btn.dataset.action === 'remove') removeLine(id);
+    });
+
+    // ---------- PRODUCT RENDERING ----------
+    const cardHTML = (p) => `
+        <div class="col product-item" data-category="${p.category}">
+            <div class="product-card">
+                <div class="product-media">
+                    <span class="product-cat-badge">${cap(p.category)}</span>
+                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    <div class="quick-view"><span data-action="view" data-id="${p.id}">Quick View</span></div>
+                </div>
+                <div class="product-body">
+                    <p class="product-brand">${p.brand}</p>
+                    <h3 class="product-title">${p.name}</h3>
+                    <div class="product-foot">
+                        <span class="product-price">$${money(p.price)}</span>
+                        <button class="add-btn" data-action="add" data-id="${p.id}" aria-label="Add ${p.name} to cart">
+                            <i class="bi bi-bag-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
     const renderProducts = (gender, containerId) => {
         const container = document.getElementById(containerId);
         if (!container) return;
-
-        container.innerHTML = '';
-        const genderProducts = products.filter(p => p.gender === gender);
-
-        genderProducts.forEach(product => {
-            const cardHTML = `
-                <div class="col product-item" data-category="${product.category}" data-product-id="${product.id}">
-                    <div class="card h-100 product-card shadow-sm clickable-card">
-                        <img src="${product.img}" class="card-img-top" alt="${product.name}">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text text-muted mb-2">${product.category.charAt(0).toUpperCase() + product.category.slice(1)} | Brand: ${product.brand}</p>
-                            <p class="card-text fw-bold fs-4 text-primary">$${product.price.toFixed(2)}</p>
-                            <p class="card-text small">**Specification:** ${product.spec}</p>
-                            <button class="btn btn-outline-primary mt-auto add-to-cart-btn" data-product-id="${product.id}">Quick Add</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
-        });
-
-        // Attach listeners for both Quick Add and Card Click
-        attachListeners(containerId);
+        container.innerHTML = products.filter(p => p.gender === gender).map(cardHTML).join('');
     };
 
-    // --- LISTENER ATTACHMENT ---
-    const attachListeners = (containerId) => {
+    // Delegated clicks on each product list (add + quick view)
+    const wireProductList = (containerId) => {
         const container = document.getElementById(containerId);
+        if (!container) return;
+        container.addEventListener('click', (e) => {
+            const el = e.target.closest('[data-action]');
+            if (!el) return;
+            const id = parseInt(el.dataset.id, 10);
+            const product = products.find(p => p.id === id);
+            if (!product) return;
 
-        // 1. Quick Add Button (Immediate add to cart from the main list)
-        container.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            // Remove previous listeners (essential for dynamic content)
-            button.replaceWith(button.cloneNode(true));
-        });
-        document.querySelectorAll(`#${containerId} .add-to-cart-btn`).forEach(button => {
-             button.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevents card click event from firing
-                const productId = parseInt(this.getAttribute('data-product-id'));
-                addToCart(productId);
-
-                // Visual feedback
-                this.textContent = 'Added!';
-                this.classList.remove('btn-outline-primary');
-                this.classList.add('btn-success');
-
+            if (el.dataset.action === 'add') {
+                addToCart(id);
+                const btn = el.closest('.add-btn');
+                btn.classList.add('added');
+                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
                 setTimeout(() => {
-                    this.textContent = 'Quick Add';
-                    this.classList.remove('btn-success');
-                    this.classList.add('btn-outline-primary');
-                }, 1500);
-            });
-        });
-
-        // 2. Card Click (Open Modal)
-        container.querySelectorAll('.clickable-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const productId = parseInt(this.closest('.product-item').getAttribute('data-product-id'));
-                const product = products.find(p => p.id === productId);
-                if (product) {
-                    showProductDetails(product);
-                }
-            });
-        });
-    };
-    
-    // --- FILTERING LOGIC ---
-    const attachFilterListeners = () => {
-        document.querySelectorAll('.filter-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                const gender = this.getAttribute('data-gender');
-                const category = this.getAttribute('data-category');
-                const containerId = `${gender}-product-list`;
-                const container = document.getElementById(containerId);
-
-                if (!container) return;
-
-                // Update active button state
-                const parentGroup = this.closest('.btn-group');
-                parentGroup.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-
-                // Filter the displayed cards by category
-                container.querySelectorAll('.product-item').forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-
-                    if (category === 'all' || cardCategory === category) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
+                    btn.classList.remove('added');
+                    btn.innerHTML = '<i class="bi bi-bag-plus"></i>';
+                }, 1300);
+            }
+            if (el.dataset.action === 'view') {
+                showProductDetails(product);
+            }
         });
     };
 
-    // --- NAVIGATION FIX (Shop By Category) ---
-    const fixNavLinks = () => {
-        document.querySelectorAll('.navbar-nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                // Only prevent default if it's NOT a dropdown toggle itself
-                if (!this.classList.contains('dropdown-toggle')) {
-                    e.preventDefault();
-                    
-                    // Collapse the navbar menu on mobile after click
-                    const navbarCollapse = document.getElementById('navbarNav');
-                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-                    if (bsCollapse) {
-                         bsCollapse.hide();
-                    }
-
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
+    // ---------- PRODUCT MODAL ----------
+    let modalCurrentId = null;
+    const showProductDetails = (p) => {
+        modalCurrentId = p.id;
+        document.getElementById('modal-product-img').src = p.img;
+        document.getElementById('modal-product-img').alt = p.name;
+        document.getElementById('modal-product-name').textContent = p.name;
+        document.getElementById('modal-product-brand').textContent = p.brand;
+        document.getElementById('modal-product-category').textContent = cap(p.category);
+        document.getElementById('modal-product-price').textContent = money(p.price);
+        document.getElementById('modal-product-spec').textContent = p.spec;
+        productModal.show();
     };
-
-
-    // --- FEEDBACK FORM HANDLER (Unchanged) ---
-    const feedbackFormHandler = () => {
-        const feedbackForm = document.getElementById('feedbackForm');
-        const feedbackSuccess = document.getElementById('feedback-success');
-
-        if (feedbackForm) {
-            feedbackForm.addEventListener('submit', function (e) {
-                e.preventDefault();
-                setTimeout(() => {
-                    feedbackForm.reset();
-                    feedbackSuccess.classList.remove('d-none');
-                    setTimeout(() => {
-                        feedbackSuccess.classList.add('d-none');
-                    }, 4000);
-                    alert('Feedback Submitted! Thank you.');
-                }, 500);
-            });
+    document.getElementById('modal-add-to-cart-btn').addEventListener('click', () => {
+        if (modalCurrentId != null) {
+            addToCart(modalCurrentId);
+            productModal.hide();
+            new bootstrap.Offcanvas(document.getElementById('cartDrawer')).show();
         }
+    });
+
+    // ---------- FILTERS ----------
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const category = this.dataset.category;
+            const containerId = `${this.dataset.gender}-product-list`;
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            this.closest('.filter-bar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+
+            container.querySelectorAll('.product-item').forEach(card => {
+                const show = category === 'all' || card.dataset.category === category;
+                card.style.display = show ? 'block' : 'none';
+            });
+        });
+    });
+
+    // ---------- FEEDBACK FORM ----------
+    const feedbackForm = document.getElementById('feedbackForm');
+    const feedbackSuccess = document.getElementById('feedback-success');
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            feedbackForm.reset();
+            feedbackSuccess.classList.remove('d-none');
+            setTimeout(() => feedbackSuccess.classList.add('d-none'), 4000);
+        });
     }
 
+    // ---------- CHECKOUT (demo) ----------
+    const checkoutBtn = document.getElementById('checkout-btn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            const total = cartSubtotalEl.textContent;
+            checkoutBtn.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i> Order Placed!';
+            setTimeout(() => {
+                cart.length = 0;
+                renderCart();
+                checkoutBtn.innerHTML = '<i class="bi bi-lock-fill me-2"></i> Checkout';
+                bootstrap.Offcanvas.getInstance(document.getElementById('cartDrawer'))?.hide();
+                alert(`Thank you! Your order of $${total} has been placed. 🛍️`);
+            }, 1200);
+        });
+    }
 
-    // --- INITIALIZE PAGE ---
+    // ---------- SMOOTH SCROLL + MOBILE NAV CLOSE ----------
+    document.querySelectorAll('.navbar-nav a[href^="#"], a.footer-brand[href^="#"], .footer a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+            const nav = document.getElementById('navbarNav');
+            bootstrap.Collapse.getInstance(nav)?.hide();
+        });
+    });
 
-    // 1. Render initial product lists and attach card/button listeners
+    // ---------- NAVBAR SCROLL STATE + ACTIVE LINK ----------
+    const nav = document.getElementById('mainNav');
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.glass-nav .nav-link');
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+        backToTop.classList.toggle('show', window.scrollY > 500);
+
+        let current = '';
+        sections.forEach(sec => {
+            if (window.scrollY >= sec.offsetTop - 140) current = sec.id;
+        });
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+    });
+
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ---------- SCROLL REVEAL ----------
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ---------- ACCOUNT STATE ----------
+    const renderAccount = () => {
+        const area = document.getElementById('account-area');
+        if (!area || !window.BagBagAuth) return;
+        const user = window.BagBagAuth.currentUser();
+        if (!user) return; // leave default "Login" link
+
+        const firstName = user.name.split(' ')[0];
+        area.classList.add('account-menu', 'dropdown');
+        area.innerHTML = `
+            <button class="btn btn-cart dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-check"></i>
+                <span>${firstName}</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li class="dropdown-header">Signed in as<strong>${user.email}</strong></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-bag-check me-2"></i>My Orders</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-heart me-2"></i>Wishlist</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" id="logout-link"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+            </ul>`;
+        document.getElementById('logout-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.BagBagAuth.logout();
+        });
+    };
+    renderAccount();
+
+    // ---------- INIT ----------
     renderProducts('men', 'men-product-list');
     renderProducts('women', 'women-product-list');
+    wireProductList('men-product-list');
+    wireProductList('women-product-list');
+    renderCart();
 
-    // 2. Attach filter event listeners
-    attachFilterListeners();
-    
-    // 3. Fix Navigation Links (Dropdown category links)
-    fixNavLinks();
-
-    // 4. Initialize Bootstrap Carousel
-    const bagCarousel = document.getElementById('bagCarousel');
-    if (bagCarousel) {
-        new bootstrap.Carousel(bagCarousel, {
-            interval: 5000,
-            wrap: true
-        });
-    }
-
-    // 5. Initialize Feedback Form
-    feedbackFormHandler();
-    
-    // 6. Initialize Cart Display
-    updateCartDisplay();
+    new bootstrap.Carousel(document.getElementById('bagCarousel'), { interval: 6000, ride: 'carousel' });
 });

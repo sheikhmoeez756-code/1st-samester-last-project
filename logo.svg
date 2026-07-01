@@ -1,0 +1,16 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BagBag logo">
+  <defs>
+    <linearGradient id="bbGold" x1="8" y1="6" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8e7ab"/>
+      <stop offset="0.5" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+  <!-- handle -->
+  <path d="M16.5 19v-3.5a7.5 7.5 0 0 1 15 0V19" stroke="url(#bbGold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- bag body -->
+  <path d="M12.4 17h23.2a2.5 2.5 0 0 1 2.48 2.16l2.5 18A2.5 2.5 0 0 1 38.1 40H9.9a2.5 2.5 0 0 1-2.48-2.84l2.5-18A2.5 2.5 0 0 1 12.4 17Z" fill="url(#bbGold)"/>
+  <!-- flap / shine detail -->
+  <path d="M17 23a7 7 0 0 0 14 0" stroke="#7a5a12" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <circle cx="24" cy="30.5" r="2.2" fill="#4a3608" opacity="0.5"/>
+</svg>
